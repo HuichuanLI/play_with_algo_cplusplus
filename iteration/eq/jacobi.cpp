@@ -91,9 +91,9 @@ int main() {
 //    std::vector<double> b(bn, bn + VEC_N);
 //    std::vector<double> x(VEC_N);
   double x[VEC_N] = {0, 0, 0};
-  jacobi_eqn(an, bn, VEC_N, x);
+//  jacobi_eqn(an, bn, VEC_N, x);
 
-//  gauss_seidel_eqn(an, bn, VEC_N, x);
+  gauss_seidel_eqn(an, bn, VEC_N, x);
   for (int i = 0; i < VEC_N; i++) {
     std::cout << "x[" << i + 1 << "] = " << x[i] << std::endl;
   }
