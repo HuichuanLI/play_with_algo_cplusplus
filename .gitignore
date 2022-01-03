@@ -20,3 +20,7 @@ NB/cmake-build-release/
 dp/cmake-build-debug/
 
 dp/cmake-build-release/
+
+graph/cmake-build-debug/
+
+graph/cmake-build-release/
