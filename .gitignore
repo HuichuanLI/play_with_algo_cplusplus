@@ -4,3 +4,15 @@
 iteration/eq/cmake-build-release/
 
 iteration/eq/cmake-build-debug/
+
+COS/cmake-build-debug/
+
+COS/cmake-build-release/
+
+exhaustion_method/cmake-build-debug/
+
+exhaustion_method/cmake-build-release/
+
+NB/cmake-build-debug/
+
+NB/cmake-build-release/

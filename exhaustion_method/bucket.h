@@ -1,0 +1,12 @@
+//
+// Created by 李汇川 on 2022/1/3.
+//
+
+#ifndef PLAY_WITH_ALGO_EXHAUSTION_METHOD_BUCKET_H_
+#define PLAY_WITH_ALGO_EXHAUSTION_METHOD_BUCKET_H_
+
+class bucket {
+
+};
+
+#endif //PLAY_WITH_ALGO_EXHAUSTION_METHOD_BUCKET_H_

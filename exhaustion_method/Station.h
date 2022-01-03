@@ -1,0 +1,12 @@
+//
+// Created by 李汇川 on 2022/1/2.
+//
+
+#ifndef PLAY_WITH_ALGO_EXHAUSTION_METHOD_STATION_H_
+#define PLAY_WITH_ALGO_EXHAUSTION_METHOD_STATION_H_
+
+class Station {
+
+};
+
+#endif //PLAY_WITH_ALGO_EXHAUSTION_METHOD_STATION_H_
