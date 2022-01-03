@@ -62,7 +62,7 @@ int partion(std::vector<Slope> &slopes, int p, int r) {
       }
       i++;
     }
-  }
+    }
   exchange(slopes, i, r);
   return i;
 }

@@ -3,5 +3,5 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(play_with_algo  line.cpp)
+add_executable(play_with_algo  hanoi.cpp)
 target_link_libraries(play_with_algo ${CMAKE_THREAD_LIBS_INIT})
