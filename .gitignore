@@ -24,3 +24,7 @@ dp/cmake-build-release/
 graph/cmake-build-debug/
 
 graph/cmake-build-release/
+
+cmake-build-debug/
+
+cmake-build-release/
