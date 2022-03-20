@@ -3,4 +3,4 @@ project(Dynamic-Array)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Array-Stack main.cpp  LinkedListStack.h)
+add_executable(Array-Stack main.cpp LinkedListStack.h)

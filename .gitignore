@@ -1,13 +1,13 @@
 
 .idea/
 
-iteration/eq/cmake-build-release/
+Math/iteration/eq/cmake-build-release/
 
-iteration/eq/cmake-build-debug/
+Math/iteration/eq/cmake-build-debug/
 
-COS/cmake-build-debug/
+Math/COS/cmake-build-debug/
 
-COS/cmake-build-release/
+Math/COS/cmake-build-release/
 
 exhaustion_method/cmake-build-debug/
 

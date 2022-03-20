@@ -3,5 +3,5 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp  BubbleSort.h InsertionSort.h SortTestHelper.h SelectionSort.h)
+set(SOURCE_FILES main.cpp BubbleSort.h InsertionSort.h SortTestHelper.h SelectionSort.h)
 add_executable(play_with_algo ${SOURCE_FILES})
