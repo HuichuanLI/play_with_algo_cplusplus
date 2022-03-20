@@ -40,3 +40,5 @@
 - AVL
 - RedBlack Tree
 - KD-tree
+- ST表
+- RMQ
