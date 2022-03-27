@@ -10,7 +10,7 @@
 #ifndef Event_hpp
 #define Event_hpp
 
-#include "Random.hpp"
+#include "Random.h"
 #define RANDOM_PARAMETER 100
 
 struct Event {
@@ -22,7 +22,7 @@ struct Event {
   Event *next;
 
   // 默认为到达事件，发生时间随机
-  Event(int occur_time = Random::uniform(RANDOM_PARAMETER),
+  Event(int occur_time = Random::getRandom(POISSON, 0.5),
         int event_type = -1) :
       occur_time(occur_time),
       event_type(event_type),

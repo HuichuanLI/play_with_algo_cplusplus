@@ -6,7 +6,7 @@
 #ifndef ServiceWindow_hpp
 #define ServiceWindow_hpp
 
-#include "Node.hpp"
+#include "Node.h"
 
 enum WindowStatus {
   SERVICE,

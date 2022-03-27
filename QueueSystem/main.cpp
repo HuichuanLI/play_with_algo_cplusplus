@@ -2,7 +2,7 @@
 // Created by 李汇川 on 2022/3/26.
 //
 
-#include "QueueSystem.hpp"
+#include "QueueSystem.h"
 
 #include <iostream>
 #include <cstdlib>

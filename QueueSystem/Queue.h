@@ -13,7 +13,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "Event.hpp"
+#include "Event.h"
 
 // 带头结点的队列
 template<typename T>
@@ -121,6 +121,7 @@ class Queue {
     }
     return length;
   }
+
  private:
   T *front;  // 头结点
   T *rear;   // 队尾
