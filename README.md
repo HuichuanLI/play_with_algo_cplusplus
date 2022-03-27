@@ -27,9 +27,17 @@
 - shell排序
 - 快速排序
 - 归并排序
+
+## 基础数据结构
+- Array
+- LinkedList
+- Queue
+- Stack
+- Map/Set
 - 堆/堆排序
 - 二叉搜索树
 - 并查集
+
 
 ## 高级数据结构
 - 树状数组
@@ -42,3 +50,10 @@
 - KD-tree
 - ST表
 - RMQ
+
+
+## c++库
+- 智能指针
+- RTTI
+- QuerySystem
+- LeakDetector
