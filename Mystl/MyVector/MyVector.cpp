@@ -1,114 +1,88 @@
-/*******************************************************************************
-**                                                                            **
-**                     Jiedi(China nanjing)Ltd.                               **
-**	               ´´½¨£º¶¡ËÎÌÎ ÏÄ²Ü¿¡£¬´Ë´úÂë¿ÉÓÃ×÷ÎªÑ§Ï°²Î¿¼                **
-*******************************************************************************/
 
-/*****************************FILE INFOMATION***********************************
-**
-** Project       : C++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½
-** Description   : winapi
-** Contact       : xiacaojun@qq.com
-**  ²©¿Í   : http://blog.csdn.net/jiedichina
-**	ÊÓÆµ¿Î³Ì : ÍøÒ×ÔÆ¿ÎÌÃ	http://study.163.com/u/xiacaojun		
-			   ÌÚÑ¶¿ÎÌÃ		https://jiedi.ke.qq.com/				
-			   csdnÑ§Ôº		http://edu.csdn.net/lecturer/lecturer_detail?lecturer_id=961	
-**             51ctoÑ§Ôº	http://edu.51cto.com/lecturer/index/user_id-12016059.html	
-** 			   ÀÏÏÄ¿ÎÌÃ		http://www.laoxiaketang.com 
-**                 
-**   C++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½ ¿Î³ÌÈº £º725616972 ¼ÓÈëÈºÏÂÔØ´úÂëºÍ½»Á÷
-**   Î¢ĞÅ¹«ÖÚºÅ  : jiedi2007
-**		Í·ÌõºÅ	 : ÏÄ²Ü¿¡
-**
-*******************************************************************************/
-//£¡£¡£¡£¡£¡£¡£¡£¡£¡ ¼ÓC++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½  QQÈº£º725616972ÏÂÔØ´úÂëºÍ½»Á÷
-//#include <iostream>
-//#include <vector>
-//using namespace std;
-//
-////MyVectorµÄÀàÄ£°å
-//template<typename Ty>
-//class MyVector {
-//public:
-//	//ÄÚÇ¶ÀàĞÍ±í
-//	typedef Ty value;
-//	typedef Ty* viter;
-//public:
-//	MyVector(int nLen = 0) :m_nLen(nLen), m_Data(NULL), finish(0) {
-//		if (nLen > 0) {
-//			m_Data = new Ty[nLen];
-//			star = m_Data;
-//			end_of_element = nLen;
-//		}
-//	}
-//	~MyVector()
-//	{
-//		delete[] m_Data;
-//	}
-//	void push_back(const value& x) {
-//		if (end_of_element != finish) {
-//			*(star + finish) = x;
-//			++finish;
-//		}
-//		else {
-//			cout << "Ô½½ç" << endl;
-//		}
-//	}
-//
-//   value pop_back() {
-//		--finish;
-//		//return *(star + finish);
-//	}
-//
-//	value& operator[](int n) {
-//		if(n==finish || n<finish){
-//			return *(star + n);
-//		}
-//		else {
-//			cout << "È¡Öµ´íÎó" << endl;
-//		}
-//	}
-//
-//	//Êı×éµÄÍ·Ö¸Õë
-//	viter begin() {
-//		return star;
-//	}
-//
-//	viter end() {
-//		return star + finish;
-//	}
-//protected:
-//	viter m_Data;//Êı×éÍ·Ö¸Õë
-//	int m_nLen;//Êı×é³¤¶È
-//	viter star;//Êı×éµÄÆğÊ¼µØÖ·
-//	int finish;//Êı×éµÄÂúÎ»±êÖ¾
-//	int end_of_element;//Êı×éµÄÄ©Î²±êÊ¶
-//};
-//
-//int main() {
-//	/*int x;
-//	MyVector<int> vec(10);
-//	vec.push_back(100);
-//	vec.push_back(200);
-//	vec.push_back(300);
-//	x = vec.pop_back();
-//	cout << "x=" << x << endl;
-//	cout << vec[0] << endl;
-//	cout << vec[1] << endl;*/
-//
-//	MyVector<int> v1(10);
-//	cout << v1.begin() << " " << v1.end() << endl;
-//
-//	/*/vector<int> myVec;
-//	myVec.begin();
-//	vector<int>::iterator iter = myVec.begin();*/
-//	MyVector<int>::viter iter;
-//	v1.push_back(100);
-//	v1.push_back(200);
-//	v1.push_back(300);
-//	for (iter = v1.begin();iter < v1.end();iter++) {
-//		cout << *iter << endl;
-//	}
-//	system("pause");
-//	return 0;
-//}
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//MyVectorï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+template<typename Ty>
+class MyVector {
+public:
+	typedef Ty value;
+	typedef Ty* viter;
+public:
+	MyVector(int nLen = 0) :m_nLen(nLen), m_Data(NULL), finish(0) {
+		if (nLen > 0) {
+			m_Data = new Ty[nLen];
+			star = m_Data;
+			end_of_element = nLen;
+		}
+	}
+	~MyVector()
+	{
+		delete[] m_Data;
+	}
+	void push_back(const value& x) {
+		if (end_of_element != finish) {
+			*(star + finish) = x;
+			++finish;
+		}
+		else {
+			cout << "ç©ºäº†" << endl;
+		}
+	}
+
+   value pop_back() {
+		--finish;
+		//return *(star + finish);
+	}
+
+	value& operator[](int n) {
+		if(n==finish || n<finish){
+			return *(star + n);
+		}
+		else {
+			cout << "È¡Öµï¿½ï¿½ï¿½ï¿½" << endl;
+		}
+	}
+
+	viter begin() {
+		return star;
+	}
+
+	viter end() {
+		return star + finish;
+	}
+protected:
+	viter m_Data;//ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ï¿½
+	int m_nLen;//ï¿½ï¿½ï¿½é³¤ï¿½ï¿½
+	viter star;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+	int finish;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ö¾
+	int end_of_element;//ï¿½ï¿½ï¿½ï¿½ï¿½Ä©Î²ï¿½ï¿½Ê¶
+};
+
+int main() {
+	/*int x;
+	MyVector<int> vec(10);
+	vec.push_back(100);
+	vec.push_back(200);
+	vec.push_back(300);
+	x = vec.pop_back();
+	cout << "x=" << x << endl;
+	cout << vec[0] << endl;
+	cout << vec[1] << endl;*/
+
+	MyVector<int> v1(10);
+	cout << v1.begin() << " " << v1.end() << endl;
+
+	/*/vector<int> myVec;
+	myVec.begin();
+	vector<int>::iterator iter = myVec.begin();*/
+	MyVector<int>::viter iter;
+	v1.push_back(100);
+	v1.push_back(200);
+	v1.push_back(300);
+	for (iter = v1.begin();iter < v1.end();iter++) {
+		cout << *iter << endl;
+	}
+	return 0;
+}

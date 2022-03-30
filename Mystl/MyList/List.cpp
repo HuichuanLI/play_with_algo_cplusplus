@@ -1,193 +1,166 @@
-/*******************************************************************************
-**                                                                            **
-**                     Jiedi(China nanjing)Ltd.                               **
-**	               ´´½¨£º¶¡ËÎÌÎ ÏÄ²Ü¿¡£¬´Ë´úÂë¿ÉÓÃ×÷ÎªÑ§Ï°²Î¿¼                **
-*******************************************************************************/
+#include <iostream>
+#include <list>
+using namespace std;
 
-/*****************************FILE INFOMATION***********************************
-**
-** Project       : C++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½
-** Description   : winapi
-** Contact       : xiacaojun@qq.com
-**  ²©¿Í   : http://blog.csdn.net/jiedichina
-**	ÊÓÆµ¿Î³Ì : ÍøÒ×ÔÆ¿ÎÌÃ	http://study.163.com/u/xiacaojun		
-			   ÌÚÑ¶¿ÎÌÃ		https://jiedi.ke.qq.com/				
-			   csdnÑ§Ôº		http://edu.csdn.net/lecturer/lecturer_detail?lecturer_id=961	
-**             51ctoÑ§Ôº	http://edu.51cto.com/lecturer/index/user_id-12016059.html	
-** 			   ÀÏÏÄ¿ÎÌÃ		http://www.laoxiaketang.com 
-**                 
-**   C++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½ ¿Î³ÌÈº £º725616972 ¼ÓÈëÈºÏÂÔØ´úÂëºÍ½»Á÷
-**   Î¢ĞÅ¹«ÖÚºÅ  : jiedi2007
-**		Í·ÌõºÅ	 : ÏÄ²Ü¿¡
-**
-*******************************************************************************/
-//£¡£¡£¡£¡£¡£¡£¡£¡£¡ ¼ÓC++·ºĞÍ±à³ÌÓëSTL¿ª·¢ÊµÕ½  QQÈº£º725616972ÏÂÔØ´úÂëºÍ½»Á÷//#include <iostream>
-//#include <list>
-//using namespace std;
+//ï¿½ï¿½ï¿½ï¿½Ä½Úµï¿½
+template<typename T>
+struct MyList_node {
+  MyList_node<T> *prev;
+  MyList_node<T> *next;
+  T data;
+};
+
+//Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+template<typename T>
+struct MyList_iterator {
+  //ï¿½ï¿½ï¿½Í±ï¿½
+  typedef MyList_iterator<T> iterator;
+  typedef MyList_node<T> *link_type;
+  //ï¿½Úµï¿½Ö¸ï¿½ï¿½
+  link_type node;
+  //ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+  MyList_iterator(link_type x) : node(x) {
+
+  }
+  MyList_iterator() : node(NULL) {
+
+  }
+
+  //ï¿½ï¿½ï¿½ï¿½++ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Â¸ï¿½ï¿½Úµï¿½Äµï¿½Ö·
+  iterator &operator++() {
+    node = node->next;
+    //ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ê±Ö¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+    return *this;
+  }
+
+  iterator &operator++(int) {
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
+    iterator tmp = *this;
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+    ++*this;
+    //ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½1Ç°ï¿½Ä¶ï¿½ï¿½ï¿½
+    return tmp;
+  }
+
+  iterator &operator--() {
+    node = (node)->prev;
+    return *this;
+  }
+
+  iterator &operator--(int) {
+    iterator tmp = *this;
+    --*this;
+    return tmp;
+  }
+
+  iterator &operator=(iterator x) {
+    node = x.node;
+    return *this;
+  }
+
+  T &operator*() const {
+    //ï¿½ï¿½ï¿½Ø½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    return node->data;
+  }
+};
+
+//MyList
+template<typename T>
+class MyList {
+ public:
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½
+  //ï¿½ï¿½MyList<T>ï¿½ï¿½ï¿½ï¿½Îªï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Iterator
+  typedef MyList_iterator<T> iterator;
+ public:
+  //ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+  MyList() : length(0) {
+    node = new MyList_node<T>;
+    node->next = node;
+    node->prev = node;
+  }
+
+  ~MyList() {
+
+  }
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
+  iterator begin() {
+    return node->next;
+
+  }
+
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½Ö·
+  iterator end() {
+    return node;
+  }
+
+  //push_front,push_back
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  void push_front(const T &x) {
+    insert(begin(), x);
+  }
+
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  void push_back(const T &x) {
+    insert(end(), x);
+  }
+
+  void pop_front() {
+    erase(begin());
+  }
+
+  void pop_back() {
+    erase(--end());
+  }
+
+  iterator insert(const iterator &position, const T &x) {
+    MyList_node<T> *tmp = new MyList_node<T>;
+    tmp->data = x;
+    tmp->prev = position.node->prev;
+    tmp->next = position.node;
+    position.node->prev->next = tmp;
+    position.node->prev = tmp;
+    ++length;
+    return tmp;
+
+  }
+
+  void erase(const iterator &position) {
+    position.node->prev->next = position.node->next;
+    position.node->next->prev = position.node->prev;
+    --length;
+  }
+ protected:
+  MyList_node<T> *node;//ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ï¿½
+  size_t length;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+};
+
 //
-////Á´±íµÄ½Úµã
-//template<typename T>
-//struct MyList_node
-//{
-//	MyList_node<T> *prev;
-//	MyList_node<T> *next;
-//	T data;
-//};
-//
-////Í¬Ê±½«Éè¼ÆÀàĞÍ±íºÍµü´úÆ÷ÕûºÏÔÚÒ»Æğ
-////µü´úÆ÷
-//template<typename T>
-//struct MyList_iterator
-//{
-//	//ÀàĞÍ±í
-//	typedef MyList_iterator<T> iterator;
-//	typedef MyList_node<T>* link_type;
-//	//½ÚµãÖ¸Õë
-//	link_type node;
-//	//¹¹Ôìº¯Êı
-//	MyList_iterator(link_type x) :node(x) {
-//
-//	}
-//	MyList_iterator() :node(NULL) {
-//
-//	}
-//
-//	//ÖØÔØ++£¬Ê¹µÃÎÒÃÇ¿ÉÒÔ»ñµÃÏÂ¸ö½ÚµãµÄµØÖ·
-//	iterator& operator ++() {
-//		node = node->next;
-//		//·µ»Ø±¾¶ÔÏó£¬Í¬Ê±Ö¸ÏòÏÂÒ»¸ö
-//		return *this;
-//	}
-//
-//	iterator& operator++(int) {
-//		//±£´æ×ÔÔöÔËËãÇ°µÄÖ¸ÕëÖµ
-//		iterator tmp = *this;
-//		//±¾¶ÔÏó¼ÓÒ»
-//		++*this;
-//		//·µ»ØÎ´¼Ó1Ç°µÄ¶ÔÏó 
-//		return tmp;
-//	}
-//
-//	iterator& operator--() {
-//		node = (node)->prev;
-//		return *this;
-//	}
-//
-//	iterator& operator--(int) {
-//		iterator tmp = *this;
-//		--*this;
-//		return tmp;
-//	}
-//
-//	iterator& operator=(iterator x) {
-//		node = x.node;
-//		return *this;
-//	}
-//
-//	T& operator* () const {
-//		//·µ»Ø½ÚµãµÄÊı¾İÓò
-//		return node->data;
-//	}
-//};
-//
-////MyList
-//template<typename T>
-//class MyList {
-//public:
-//	//Êı¾İÀàĞÍ±í
-//	//½«MyList<T>ÉùÃ÷ÎªÄÚ²¿ÀàĞÍIterator
-//	typedef MyList_iterator<T> iterator;
-//public:
-//	//¹¹Ôìº¯Êı
-//	MyList() :length(0) {
-//		node = new MyList_node<T>;
-//		node->next = node;
-//		node->prev = node;
-//	}
-//	
-//	~MyList()
-//	{
-//
-//	}
-//	//·µ»ØÁ´±íµÄÍ·º¯Êı
-//	iterator begin() {
-//		return node->next;
-//		
-//	}
-//
-//	//·µ»ØÁ´±íµÄÎ²µØÖ·
-//	iterator end() {
-//		return node;
-//	}
-//
-//	//push_front,push_back
-//	//ÏòÁ´±íµÄÍ·²¿¼ÓÈëÊı¾İ
-//	void push_front(const T& x) {
-//		insert(begin(), x);
-//	}
-//
-//	//ÏòÁ´±íµÄÎ²²¿²åÈë
-//	void push_back(const T& x) {
-//		insert(end(), x);
-//	}
-//
-//	void pop_front() {
-//		erase(begin());
-//	}
-//
-//	void pop_back() {
-//		erase(--end());
-//	}
-//
-//
-//	iterator insert(const iterator& position, const T& x) {
-//		MyList_node<T>* tmp = new MyList_node<T>;
-//		tmp->data = x;
-//		tmp->prev = position.node->prev;
-//		tmp->next = position.node;
-//		position.node->prev->next = tmp;
-//		position.node->prev = tmp;
-//		++length;
-//		return tmp;
-//
-//	}
-//
-//	void erase(const iterator& position) {
-//		position.node->prev->next = position.node->next;
-//		position.node->next->prev = position.node->prev;
-//		--length;
-//	}
-//protected:
-//	MyList_node<T> *node;//Á´±íµÄÍ·Ö¸Õë
-//	size_t length;//Á´±í³¤¶È
-//};
-//
-////
-//int main(void){
-//	
-//	MyList<int> mylist1;
-//	mylist1.push_front(10);
-//	mylist1.push_front(20);
-//	mylist1.push_front(30);
-//
-//	MyList<int>::iterator iter;
-//	iter = mylist1.begin();
-//	cout << *iter << endl;
-//	cout << *++iter << endl;
-//	cout << *++iter << endl;
-//	cout << "___________________" << endl;
-//	mylist1.push_back(100);
-//	mylist1.push_back(200);
-//	mylist1.push_back(300);
-//	iter = mylist1.end();
-//	cout << *--iter << endl;
-//	cout << *--iter << endl;
-//	cout << *--iter << endl;
-//	cout << "__________" << endl;
-//	mylist1.pop_front();
-//	mylist1.pop_back();
-//	cout << *mylist1.begin() << endl;
-//	cout << *--mylist1.end() << endl;
-//		system("pause");
-//		return 0;
-//}
+int main(void) {
+
+  MyList<int> mylist1;
+  mylist1.push_front(10);
+  mylist1.push_front(20);
+  mylist1.push_front(30);
+
+  MyList<int>::iterator iter;
+  iter = mylist1.begin();
+  cout << *iter << endl;
+  cout << *++iter << endl;
+  cout << *++iter << endl;
+  cout << "___________________" << endl;
+  mylist1.push_back(100);
+  mylist1.push_back(200);
+  mylist1.push_back(300);
+  iter = mylist1.end();
+  cout << *--iter << endl;
+  cout << *--iter << endl;
+  cout << *--iter << endl;
+  cout << "__________" << endl;
+  mylist1.pop_front();
+  mylist1.pop_back();
+  cout << *mylist1.begin() << endl;
+  cout << *--mylist1.end() << endl;
+  system("pause");
+  return 0;
+}

@@ -12,9 +12,7 @@ public:
 	void set(T data, int num);
 public:
 	T *pt;
-	//int n;//作为长度？
 };
-//n是定长的，所以数组一旦生成，不能变化
 template<class T,int n>
 Array<T, n>::Array() {
 	this->pt = new T[n];
@@ -38,7 +36,6 @@ int Array<T, n>::size() {
 template<class T, int n>
 T Array<T, n>::get(int num) {
 	if (num >= n || num < 0) {
-		//异常
 
 	}
 	else {
@@ -48,7 +45,6 @@ T Array<T, n>::get(int num) {
 template<class T, int n>
 void Array<T, n>::set(T data, int num) {
 	if (num < 0 || num >= n) {
-		//异常
 	}
 	else
 	{
