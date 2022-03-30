@@ -68,6 +68,59 @@ double KMeans::Cost() {
   }
   return sum;
 }
+
+// This simply computes or re-computes mu_k
+void KMeans::computeMu() {
+  LinAlg::LinAlg alg;
+  for (int i = 0; i < mu.size(); i++) {
+    std::vector<double> num;
+    num.resize(r.size());
+
+    for (int i = 0; i < num.size(); i++) {
+      num[i] = 0;
+    }
+
+    double den = 0;
+    for (int j = 0; j < r.size(); j++) {
+      num = alg.addition(num, alg.scalarMultiply(r[j][i], inputSet[j]));
+    }
+    for (int j = 0; j < r.size(); j++) {
+      den += r[j][i];
+    }
+    mu[i] = alg.scalarMultiply(double(1) / double(den), num);
+  }
+
+}
+
+
+void KMeans::train(int epoch_num, bool UI) {
+  double cost_prev = 0;
+  int epoch = 1;
+
+  Evaluate();
+
+  while (true) {
+
+    // STEPS OF THE ALGORITHM
+    // 1. DETERMINE r_nk
+    // 2. DETERMINE J
+    // 3. DETERMINE mu_k
+
+    // STOP IF CONVERGED, ELSE REPEAT
+
+    cost_prev = Cost();
+
+    computeMu();
+    Evaluate();
+
+    // UI PORTION
+    if (UI) { Utilities::CostInfo(epoch, cost_prev, Cost()); }
+    epoch++;
+
+    if (epoch > epoch_num) { break; }
+
+  }
+}
 }
 
 int main() {
