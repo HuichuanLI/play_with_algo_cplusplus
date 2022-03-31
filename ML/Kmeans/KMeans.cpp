@@ -130,7 +130,7 @@ void KMeans::train(int epoch_num, bool UI) {
   Evaluate();
 
   while (true) {
-    
+
     cost_prev = Cost();
 
     computeMu();
