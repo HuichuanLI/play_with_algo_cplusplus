@@ -17,20 +17,13 @@ double norm_sq(std::vector<double> a) {
   return n_sq;
 }
 
-std::vector<std::vector<double>> subtraction(std::vector<std::vector<double>> A,
-                                             std::vector<std::vector<double>> B) {
-  std::vector<std::vector<double>> C;
-  C.resize(A.size());
-  for (int i = 0; i < C.size(); i++) {
-    C[i].resize(A[0].size());
+std::vector<double> subtraction(std::vector<double> a, std::vector<double> b) {
+  std::vector<double> c;
+  c.resize(a.size());
+  for (int i = 0; i < a.size(); i++) {
+    c[i] = a[i] - b[i];
   }
-
-  for (int i = 0; i < A.size(); i++) {
-    for (int j = 0; j < A[0].size(); j++) {
-      C[i][j] = A[i][j] - B[i][j];
-    }
-  }
-  return C;
+  return c;
 }
 
 // Multidimensional Euclidean Distance
@@ -85,6 +78,12 @@ double min(std::vector<double> a) {
     }
   }
   return min;
+}
+std::vector<double> scalarMultiply(double scalar, std::vector<double> a) {
+  for (int i = 0; i < a.size(); i++) {
+    a[i] *= scalar;
+  }
+  return a;
 }
 
 };

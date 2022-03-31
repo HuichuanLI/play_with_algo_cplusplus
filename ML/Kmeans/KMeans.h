@@ -35,6 +35,7 @@ class KMeans {
   int k;
 
   std::string init_type;
-}
+
 };
+}
 #endif //PLAY_WITH_ALGO_ML_KMEANS_KMEANS_H_

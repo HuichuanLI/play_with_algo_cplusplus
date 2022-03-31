@@ -33,7 +33,6 @@ KMeans::KMeans(std::vector<std::vector<double>> inputSet, int k, std::string ini
 }
 
 void KMeans::kmeansppInitialization(int k) {
-  LinAlg::LinAlg alg;
   std::random_device rd;
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0, int(inputSet.size() - 1));
@@ -47,7 +46,7 @@ void KMeans::kmeansppInitialization(int k) {
       AS TO SPREAD OUT THE CLUSTER CENTROIDS. */
       double sum = 0;
       for (int k = 0; k < mu.size(); k++) {
-        sum += alg.euclideanDistance(inputSet[j], mu[k]);
+        sum += LinAlg::euclideanDistance(inputSet[j], mu[k]);
       }
       if (sum * sum > max_dist) {
         farthestCentroid = inputSet[j];
@@ -59,11 +58,10 @@ void KMeans::kmeansppInitialization(int k) {
 }
 
 double KMeans::Cost() {
-  LinAlg::LinAlg alg;
   double sum = 0;
   for (int i = 0; i < r.size(); i++) {
     for (int j = 0; j < r[0].size(); j++) {
-      sum += r[i][j] * alg.norm_sq(alg.subtraction(inputSet[i], mu[j]));
+      sum += r[i][j] * LinAlg::norm_sq(LinAlg::subtraction(inputSet[i], mu[j]));
     }
   }
   return sum;
@@ -71,7 +69,6 @@ double KMeans::Cost() {
 
 // This simply computes or re-computes mu_k
 void KMeans::computeMu() {
-  LinAlg::LinAlg alg;
   for (int i = 0; i < mu.size(); i++) {
     std::vector<double> num;
     num.resize(r.size());
@@ -82,16 +79,49 @@ void KMeans::computeMu() {
 
     double den = 0;
     for (int j = 0; j < r.size(); j++) {
-      num = alg.addition(num, alg.scalarMultiply(r[j][i], inputSet[j]));
+      num = LinAlg::addition(num, LinAlg::scalarMultiply(r[j][i], inputSet[j]));
     }
     for (int j = 0; j < r.size(); j++) {
       den += r[j][i];
     }
-    mu[i] = alg.scalarMultiply(double(1) / double(den), num);
+    mu[i] = LinAlg::scalarMultiply(double(1) / double(den), num);
   }
 
 }
 
+// This simply computes r_nk
+void KMeans::Evaluate() {
+  r.resize(inputSet.size());
+
+  for (int i = 0; i < r.size(); i++) {
+    r[i].resize(k);
+  }
+
+  for (int i = 0; i < r.size(); i++) {
+    std::vector<double> closestCentroid = mu[0];
+    for (int j = 0; j < r[0].size(); j++) {
+      bool isCentroidCloser =
+          LinAlg::euclideanDistance(inputSet[i], mu[j]) < LinAlg::euclideanDistance(inputSet[i], closestCentroid);
+      if (isCentroidCloser) {
+        closestCentroid = mu[j];
+      }
+    }
+    for (int j = 0; j < r[0].size(); j++) {
+      if (mu[j] == closestCentroid) {
+        r[i][j] = 1;
+      } else { r[i][j] = 0; }
+    }
+  }
+
+}
+
+void CostInfo(int epoch, double cost_prev, double Cost) {
+  std::cout << "-----------------------------------" << std::endl;
+  std::cout << "This is epoch: " << epoch << std::endl;
+  std::cout << "The cost function has been minimized by " << cost_prev - Cost << std::endl;
+  std::cout << "Current Cost:" << std::endl;
+  std::cout << Cost << std::endl;
+}
 
 void KMeans::train(int epoch_num, bool UI) {
   double cost_prev = 0;
@@ -114,12 +144,27 @@ void KMeans::train(int epoch_num, bool UI) {
     Evaluate();
 
     // UI PORTION
-    if (UI) { Utilities::CostInfo(epoch, cost_prev, Cost()); }
+    if (UI) { CostInfo(epoch, cost_prev, Cost()); }
     epoch++;
 
     if (epoch > epoch_num) { break; }
 
   }
+}
+
+std::vector<std::vector<double>> KMeans::modelSetTest(std::vector<std::vector<double>> X) {
+  std::vector<std::vector<double>> closestCentroids;
+  for (int i = 0; i < inputSet.size(); i++) {
+    std::vector<double> closestCentroid = mu[0];
+    for (int j = 0; j < r[0].size(); j++) {
+      bool isCentroidCloser = LinAlg::euclideanDistance(X[i], mu[j]) < LinAlg::euclideanDistance(X[i], closestCentroid);
+      if (isCentroidCloser) {
+        closestCentroid = mu[j];
+      }
+    }
+    closestCentroids.push_back(closestCentroid);
+  }
+  return closestCentroids;
 }
 }
 
@@ -129,8 +174,7 @@ int main() {
   KMeans::KMeans kmeans(inputSet, 3, "KMeans++");
   kmeans.train(3, 1);
   std::cout << std::endl;
-  LinAlg::LinAlg alg;
-  alg.printMatrix(kmeans.modelSetTest(inputSet)); // Returns the assigned centroids to each of the respective training examples
+  LinAlg::printMatrix(kmeans.modelSetTest(inputSet)); // Returns the assigned centroids to each of the respective training examples
   std::cout << std::endl;
-  alg.printVector(kmeans.silhouette_scores());
+//  LinAlg::printVector(kmeans.silhouette_scores());
 }
