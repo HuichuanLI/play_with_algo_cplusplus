@@ -28,4 +28,10 @@ int main() {
   std::cout << "Covariance: " << Stat::covariance(x, y) << std::endl;
   std::cout << "Correlation: " << Stat::correlation(x, y) << std::endl;
   std::cout << "R^2: " << Stat::R2(x, y) << std::endl;
+
+  std::cout << "Root Mean Square (Quadratic mean): " << Stat::RMS(x) << std::endl;
+  std::cout << "Power Mean (p = 5): " << Stat::powerMean(x, 5) << std::endl;
+  std::cout << "Weighted Mean: " << Stat::weightedMean(x, w) << std::endl;
+  std::cout << "Geometric Mean: " << Stat::geometricMean(x) << std::endl;
+
 }

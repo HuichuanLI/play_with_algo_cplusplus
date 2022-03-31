@@ -75,6 +75,48 @@ double correlation(const std::vector<double> &x, const std::vector<double> &y) {
 double R2(const std::vector<double> &x, const std::vector<double> &y) {
   return correlation(x, y) * correlation(x, y);
 }
+
+double weightedMean(const std::vector<double> &x, const std::vector<double> &weights) {
+  double sum = 0;
+  double weights_sum = 0;
+  for (int i = 0; i < x.size(); i++) {
+    sum += x[i] * weights[i];
+    weights_sum += weights[i];
+  }
+  return sum / weights_sum;
+}
+double geometricMean(const std::vector<double> &x) {
+  double product = 1;
+  for (int i = 0; i < x.size(); i++) {
+    product *= x[i];
+  }
+  return std::pow(product, 1.0 / x.size());
+}
+
+double harmonicMean(const std::vector<double> &x) {
+  double sum = 0;
+  for (int i = 0; i < x.size(); i++) {
+    sum += 1 / x[i];
+  }
+  return x.size() / sum;
+}
+
+double RMS(const std::vector<double> &x) {
+  double sum = 0;
+  for (int i = 0; i < x.size(); i++) {
+    sum += x[i] * x[i];
+  }
+  return sqrt(sum / x.size());
+}
+
+double powerMean(const std::vector<double> &x, const double p) {
+  double sum = 0;
+  for (int i = 0; i < x.size(); i++) {
+    sum += std::pow(x[i], p);
+  }
+  return std::pow(sum / x.size(), 1 / p);
+}
+
 }
 
 #endif //PLAY_WITH_ALGO_ML_STATS_STAT_H_
