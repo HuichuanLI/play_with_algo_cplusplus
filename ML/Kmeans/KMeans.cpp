@@ -130,14 +130,7 @@ void KMeans::train(int epoch_num, bool UI) {
   Evaluate();
 
   while (true) {
-
-    // STEPS OF THE ALGORITHM
-    // 1. DETERMINE r_nk
-    // 2. DETERMINE J
-    // 3. DETERMINE mu_k
-
-    // STOP IF CONVERGED, ELSE REPEAT
-
+    
     cost_prev = Cost();
 
     computeMu();
@@ -166,6 +159,43 @@ std::vector<std::vector<double>> KMeans::modelSetTest(std::vector<std::vector<do
   }
   return closestCentroids;
 }
+std::vector<double> KMeans::silhouette_scores() {
+  std::vector<std::vector<double>> closestCentroids = modelSetTest(inputSet);
+  std::vector<double> silhouette_scores;
+  for (int i = 0; i < inputSet.size(); i++) {
+    // COMPUTING a[i]
+    double a = 0;
+    for (int j = 0; j < inputSet.size(); j++) {
+      if (i != j && r[i] == r[j]) {
+        a += LinAlg::euclideanDistance(inputSet[i], inputSet[j]);
+      }
+    }
+    // NORMALIZE a[i]
+    a /= closestCentroids[i].size() - 1;
+
+
+    // COMPUTING b[i]
+    double b = INT_MAX;
+    for (int j = 0; j < mu.size(); j++) {
+      if (closestCentroids[i] != mu[j]) {
+        double sum = 0;
+        for (int k = 0; k < inputSet.size(); k++) {
+          sum += LinAlg::euclideanDistance(inputSet[i], inputSet[k]);
+        }
+        // NORMALIZE b[i]
+        double k_clusterSize = 0;
+        for (int k = 0; k < closestCentroids.size(); k++) {
+          if (closestCentroids[k] == mu[j]) {
+            k_clusterSize++;
+          }
+        }
+        if (sum / k_clusterSize < b) { b = sum / k_clusterSize; }
+      }
+    }
+    silhouette_scores.push_back((b - a) / fmax(a, b));
+  }
+  return silhouette_scores;
+}
 }
 
 int main() {
@@ -176,5 +206,5 @@ int main() {
   std::cout << std::endl;
   LinAlg::printMatrix(kmeans.modelSetTest(inputSet)); // Returns the assigned centroids to each of the respective training examples
   std::cout << std::endl;
-//  LinAlg::printVector(kmeans.silhouette_scores());
+  LinAlg::printVector(kmeans.silhouette_scores());
 }
