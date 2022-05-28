@@ -1,8 +1,9 @@
-
+//
+// Created by 李汇川 on 2022/5/29.
+//
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ double medianForSortedVector(const vector<int> &nums) {
   else
     return (double) (nums[nums.size() / 2] + nums[nums.size() / 2 - 1]) / 2.0;
 }
+
 
 vector<double> quartiles(vector<int> nums) {
   sort(nums.begin(), nums.end());

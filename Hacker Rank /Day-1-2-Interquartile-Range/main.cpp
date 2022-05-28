@@ -1,9 +1,10 @@
-
+//
+// Created by 李汇川 on 2022/5/29.
+//
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
 /*
@@ -41,6 +42,11 @@ vector<double> quartiles(vector<int> nums) {
   return vector<double>(q, q + sizeof(q) / sizeof(double));
 
 }
+double interquartileRange(const vector<int> nums) {
+
+  vector<double> q = quartiles(nums);
+  return q[2] - q[0];
+}
 
 int main() {
 
@@ -48,16 +54,21 @@ int main() {
   cin >> N;
 
   vector<int> nums;
-  int x;
+  vector<int> X, F;
+  int x, f;
   for (int i = 0; i < N; i++) {
     cin >> x;
-    nums.push_back(x);
+    X.push_back(x);
   }
+  for (int i = 0; i < N; i++) {
+    cin >> f;
+    F.push_back(f);
+  }
+  for (int i = 0; i < X.size(); i++)
+    for (int j = 0; j < F[i]; j++)
+      nums.push_back(X[i]);
 
-  vector<double> res = quartiles(nums);
-  cout << fixed << setprecision(0);
-  for (int i = 0; i < 3; i++)
-    cout << res[i] << endl;
+  cout << fixed << setprecision(1) << interquartileRange(nums) << endl;
 
   return 0;
 }
