@@ -3,4 +3,4 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(play_with_algo Hungary.cpp)
+add_executable(play_with_algo main.cpp DenseGraph.h SparseGraph.h ReadGraph.h)
