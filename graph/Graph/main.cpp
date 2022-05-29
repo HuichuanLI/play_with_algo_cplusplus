@@ -4,6 +4,7 @@
 #include "ReadGraph.h"
 #include "Components.h"
 #include "Path.h"
+#include "ShortestPath.h"
 
 using namespace std;
 
@@ -44,7 +45,11 @@ int main() {
   cout << "TestG1.txt, Using Dense Graph, Component Count: " << component2.count() << endl;
 
   Path<SparseGraph> path(g1, 0);
-  cout << "Path from 0 to 6 : " << endl;
+  cout << "DFS Path from 0 to 6 : " << endl;
   path.showPath(6);
+
+  ShortestPath<SparseGraph> bfs2(g1, 0);
+  cout << "BFS : ";
+  bfs2.showPath(3);
   return 0;
 }
