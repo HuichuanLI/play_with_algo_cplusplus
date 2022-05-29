@@ -6,6 +6,7 @@
 #include "DenseGraph.h"
 #include "ReadGraph.h"
 #include "Dijkstra.h"
+#include "BellmanFord.h"
 
 using namespace std;
 
@@ -31,6 +32,25 @@ int main() {
 
     cout << "----------" << endl;
   }
+
+  cout << "Test Bellman-Ford:" << endl << endl;
+  int s = 0;
+  BellmanFord<SparseGraph<int>, int> bellmanFord(g, s);
+  if (bellmanFord.negativeCycle())
+    cout << "The graph contain negative cycle!" << endl;
+  else
+    for (int i = 0; i < V; i++) {
+      if (i == s)
+        continue;
+
+      if (bellmanFord.hasPathTo(i)) {
+        cout << "Shortest Path to " << i << " : " << bellmanFord.shortestPathTo(i) << endl;
+        bellmanFord.showPath(i);
+      } else
+        cout << "No Path to " << i << endl;
+
+      cout << "----------" << endl;
+    }
 
   return 0;
 }
