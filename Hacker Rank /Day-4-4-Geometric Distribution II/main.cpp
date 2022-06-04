@@ -7,26 +7,20 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-double b = 1.09, g = 1;  // given
-int fact(int n) {
-  if (n < 2) return 1;
-  return n * fact(n - 1);
-}
-double nCr(int n, int r) {
-  return fact(n) / (fact(r) * fact(n - r));
-}
 int main() {
   /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
-  double p = b / (b + g);
+  double p = 0.333;
   double q = 1 - p;
 
-  double prob = 0.0;
+  double g_prob = 0.0;
 
-  for (auto i = 6; i >= 3; i--) {
-    prob += nCr(6, i) * pow(p, i) * pow(q, 6 - i);
+  for(auto i=1; i<=5; i++)
+  {
+    g_prob += pow(q, i-1)*p;
   }
-  printf("%0.3f\n", prob);
+
+  printf("%0.3f", g_prob);
 
   return 0;
 }

@@ -1,49 +1,39 @@
 //
 // Created by 李汇川 on 2022/5/29.
 //
-
-
 #include <cmath>
 #include <cstdio>
 #include <vector>
 #include <iostream>
-#include <iomanip>
 #include <algorithm>
-#include <cassert>
 using namespace std;
 
-double mean(const vector<int> &nums) {
-
-  int sum = 0;
-  for (int i = 0; i < nums.size(); i++)
-    sum += nums[i];
-
-  return (double) sum / nums.size();
+int fact(int n) {
+  if (n < 2) return 1;
+  return n * fact(n - 1);
 }
 
-double standardDeviation(const vector<int> &nums) {
-  assert(nums.size() > 0);
-  double miu = mean(nums);
-  double sum = 0.0;
+double nCr(int n, int r) {
+  return fact(n) / (fact(r) * fact(n - r));
+}
 
-  for (int i = 0; i < nums.size(); i++)
-    sum += (nums[i] - miu) * (nums[i] - miu);
-  return sqrt(sum / nums.size());
+double binomial(int p, int q) {
+  return pow(0.12, double(p)) * pow(0.88, double(q));
 }
 
 int main() {
+  /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
-  int N;
-  cin >> N;
+  double ans1 = 0.0, ans2 = 1.0;
 
-  vector<int> nums;
-  int x;
-  for (int i = 0; i < N; i++) {
-    cin >> x;
-    nums.push_back(x);
+  for (auto i = 2; i >= 0; i--) {
+    ans1 += nCr(10, i) * binomial(i, 10 - i);
   }
-
-  cout << fixed << setprecision(1) << standardDeviation(nums) << endl;
+  for (auto i = 1; i >= 0; i--) {
+    ans2 -= nCr(10, i) * binomial(i, 10 - i);
+    //ans2 = 1.0 - ans2;
+  }
+  printf("%0.3f\n%0.3f", ans1, ans2);
 
   return 0;
 }

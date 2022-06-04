@@ -10,17 +10,13 @@ using namespace std;
 int main() {
   /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
-  double p = 0.333;
-  double q = 1 - p;
+  // given
+  double l1 = 0.88, l2 = 1.55;
 
-  double g_prob = 0.0;
+  double p1 = 160 + 40*(l1 + (l1*l1));
+  double p2 = 128 + 40*(l2 + (l2*l2));
 
-  for(auto i=1; i<=5; i++)
-  {
-    g_prob += pow(q, i-1)*p;
-  }
-
-  printf("%0.3f", g_prob);
+  printf("%0.3f\n%0.3f", p1, p2);
 
   return 0;
 }
