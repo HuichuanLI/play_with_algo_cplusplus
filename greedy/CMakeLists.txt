@@ -3,5 +3,5 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES MachineFactory.cpp)
+set(SOURCE_FILES changemoney.cpp)
 add_executable(play_with_algo ${SOURCE_FILES})
