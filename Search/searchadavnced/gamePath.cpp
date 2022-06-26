@@ -111,7 +111,7 @@ void astar() {
 
 int main() {
     ios::sync_with_stdio(false);
-    ifstream fin("/Users/lhc456/Desktop/c++/play_with_algo_cplusplus/Search/searchadavnced/data/agame/1.in");
+    ifstream fin("/Users/lhc456/Desktop/c++/play_with_algo_cplusplus/Search/searchadavnced/data/agame/3.in");
     cout.tie(NULL);
 
     fin >> n >> m;
