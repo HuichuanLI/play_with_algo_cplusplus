@@ -203,7 +203,7 @@ void double_bfs() {
 
 int main() {
     ios::sync_with_stdio(false);
-    ifstream fin("/Users/lhc456/Desktop/c++/play_with_algo_cplusplus/Search/searchadavnced/data/1.in");
+    ifstream fin("/Users/lhc456/Desktop/c++/play_with_algo_cplusplus/Search/searchadavnced/data/2.in");
     cout.tie(NULL);
 
     fin >> n;
