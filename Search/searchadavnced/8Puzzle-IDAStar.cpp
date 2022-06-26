@@ -77,7 +77,7 @@ bool isSameBoard(int a[9], int b[9]) {
     return true;
 }
 
-int dfs(PuzzleState state) {
+void dfs(PuzzleState state) {
     stateCount++;
     maxDepth = max(maxDepth, state.depth);
     if (isSameBoard(state.puzzle, ep.puzzle)) {
@@ -88,6 +88,51 @@ int dfs(PuzzleState state) {
     if (state.f > limit)
         return;
 
+    int p = 0;
+    while (state.puzzle[p] != 0)
+        p++;
+    for (int i = 0; i < 4; i++) {
+        int newPuzzle[9];
+        memcpy(newPuzzle, state.puzzle, sizeof(newPuzzle));
+        int rp = -1;
+        if (i == 0 && p < 6)
+            rp = p + 3;
+        if (i == 1 && p > 2)
+            rp = p - 3;
+        if (i == 2 && p % 3 != 2)
+            rp = p + 1;
+        if (i == 3 && p % 3 != 0)
+            rp = p - 1;
+        if (rp == -1)
+            continue;
+        newPuzzle[p] = newPuzzle[rp];
+        newPuzzle[rp] = 0;
+        long permHash = getPermutationHash(newPuzzle);
+        if (hashState.count(permHash))
+            continue;
+        hashState[permHash] = state.depth + 1;
+        PuzzleState ps;
+        ps.depth = state.depth + 1;
+        memcpy(ps.puzzle, newPuzzle, sizeof(ps.puzzle));
+        ps.calcHeuristic(ep);
+        dfs(ps);
+        if (isAnswerFound)
+            return;
+    }
+}
+
+void idastar_init() {
+    stateCount = 0;
+    tstart = getTime();
+    limit = 0;
+    while (true) {
+        limit++;
+        hashState.clear();
+        hashState[getPermutationHash(sp.puzzle)] = 0;
+        dfs(sp);
+        if (isAnswerFound)
+            break;
+    }
 }
 
 int main() {
@@ -95,7 +140,6 @@ int main() {
     ifstream fin("/Users/lhc456/Desktop/c++/play_with_algo_cplusplus/Search/searchadavnced/data/astar/1.in");
     cout.tie(NULL);
 
-    PuzzleState sp, ep;
     sp.depth = 0;
     for (int i = 0; i < 9; i++)
         fin >> sp.puzzle[i];
@@ -104,9 +148,6 @@ int main() {
     fin.close();
 
     sp.calcHeuristic(ep);
-
-
-    cout << astar(sp, ep) << endl;
-
+    idastar_init();
     return 0;
 }
