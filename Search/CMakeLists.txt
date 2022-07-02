@@ -3,4 +3,4 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(play_with_algo searchadavnced/gamePath.cpp searchadavnced/Stick-DFS.cpp searchadavnced/Stick-Pruning.cpp)
+add_executable(play_with_algo searchadavnced/gamePath.cpp searchadavnced/Stick-DFS.cpp searchadavnced/Stick-Pruning.cpp ../DS/Sqlist/sqlist.cpp)
