@@ -3,4 +3,4 @@ project(Dynamic-Array)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Array-Stack linkedlist.cpp DuLinkList.cpp)
+add_executable(Array-Stack linkedlist.cpp DuLinkList.cpp mergelist.cpp sqlite.h reverseLinkedlist.cpp)
