@@ -1,6 +1,3 @@
-//
-// Created by lhc456 on 2022/7/3.
-//
 #include<iostream>
 
 using namespace std;
@@ -31,7 +28,7 @@ void CreateList_R(LinkList &L)//尾插法创建单链表
     cin >> n;
     cout << "尾插法（正序）创建单链表..." << endl;
     while (n--) {
-        s = new LNode;
+        s = new LNode;//生成新结点
         cin >> s->data; //输入元素值赋给新结点的数据域
         s->next = NULL;
         r->next = s;//将新结点s插入尾结点r之后
@@ -39,16 +36,19 @@ void CreateList_R(LinkList &L)//尾插法创建单链表
     }
 }
 
-void reverselinklist(LinkList &L) {
+LinkList findk(LinkList L, int k) {
     LinkList p, q;
-    p = L->next;
-    L->next = NULL;
-    while (p) {
-        q = p->next;
-        p->next = L->next;
-        L->next = p;
-        p = q;
+    p = L->next; //p为快指针，初始时指向第一个数据结点
+    q = L->next; //q为慢指针，初始时指向第一个数据结点
+    while (p->next != NULL) {
+        if (--k <= 0)
+            q = q->next;//q为慢指针
+        p = p->next; //p为快指针；
     }
+    if (k > 0)
+        return NULL;
+    else
+        return q;//返回中间结点指针
 }
 
 void Listprint_L(LinkList L) //单链表的输出
@@ -63,14 +63,19 @@ void Listprint_L(LinkList L) //单链表的输出
 }
 
 int main() {
-    LinkList L;
+    LinkList L, r;
+    int k;
     cout << "创建单链表L:" << endl;
     InitList_L(L);
     CreateList_R(L);
     cout << "单链表数据为：" << endl;
     Listprint_L(L);
-    cout << "单链表就地逆置后结果为：" << endl;
-    reverselinklist(L);
-    Listprint_L(L);
+    cout << "需要查找倒数第k个结点的k值：" << endl;
+    cin >> k;
+    r = findk(L, k);
+    if (r)
+        cout << "单链表倒数第" << k << "个结点数据为：" << r->data << endl;
+    else
+        cout << "没找到倒数第" << k << "个结点!" << endl;
     return 0;
 }
