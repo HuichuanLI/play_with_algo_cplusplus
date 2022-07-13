@@ -23,5 +23,6 @@ int main() {
 
     int depth = GenListDepth(gl);
     printf("depth = %d\n", depth);
+    return 0;
 
 }
