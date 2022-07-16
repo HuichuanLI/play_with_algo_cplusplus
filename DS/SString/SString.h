@@ -148,8 +148,40 @@ void StrDelete(SString S, int pos, int len) {
 void StrClear(SString S);
 
 /////////////////////////////////////////////////////////
-int StrIndex(SString S, SString T, int pos);
+int StrIndex(SString S, SString T, int pos) {
+    int i = pos;
+    int j = 0;
+    while (S[i] != '\0' && T[j] != '\0') {
+        if (S[i] == T[j]) {
+            i++;
+            j++;
+        } else {
+            i = i - j + 1;
+            j = 0;
+        }
+    }
+    if (T[j] == '\0')
+        return i - j;
+    return -1;
+}
 
-void StrReplace(SString S, SString T, SString V);
+void StrReplace(SString S, SString T, SString V) {
+    int s_len = StrLength(S);
+    int t_len = StrLength(T);
+    int v_len = StrLength(V);
+
+    int index = -1;
+    int pos = 0;
+
+    while (pos < s_len) {
+        index = StrIndex(S, T, pos);
+        if (index == -1)
+            return;
+        StrDelete(S, index, t_len);
+        StrInsert(S, index, V);
+
+        pos = index + v_len;
+    }
+}
 
 #endif //__SSTRING_H__
