@@ -3,4 +3,4 @@ project(play_with_algo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(play_with_algo FIFO.cpp)
+add_executable(play_with_algo Heap.cpp)
